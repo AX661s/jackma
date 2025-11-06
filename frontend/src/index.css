@@ -114,9 +114,9 @@ code {
     /* Cyber grid background */
     .cyber-grid {
         background-image: 
-            linear-gradient(hsl(var(--primary) / 0.12) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--primary) / 0.12) 1px, transparent 1px);
-        background-size: 50px 50px;
+            linear-gradient(hsl(var(--primary) / 0.12) 1.5px, transparent 1.5px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.12) 1.5px, transparent 1.5px);
+        background-size: 100px 100px;
         position: relative;
     }
     
@@ -126,9 +126,9 @@ code {
         position: fixed;
         inset: 0;
         background-image: 
-            linear-gradient(hsl(var(--primary) / 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--primary) / 0.05) 1px, transparent 1px);
-        background-size: 50px 50px;
+            linear-gradient(hsl(var(--primary) / 0.05) 1.5px, transparent 1.5px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.05) 1.5px, transparent 1.5px);
+        background-size: 100px 100px;
         filter: blur(0.5px);
         pointer-events: none;
         z-index: 0;
