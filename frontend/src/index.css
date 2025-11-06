@@ -114,9 +114,24 @@ code {
     /* Cyber grid background */
     .cyber-grid {
         background-image: 
-            linear-gradient(hsl(var(--primary) / 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--primary) / 0.03) 1px, transparent 1px);
+            linear-gradient(hsl(var(--primary) / 0.12) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.12) 1px, transparent 1px);
         background-size: 50px 50px;
+        position: relative;
+    }
+    
+    /* Add subtle glow to grid lines */
+    .cyber-grid::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: 
+            linear-gradient(hsl(var(--primary) / 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+        filter: blur(0.5px);
+        pointer-events: none;
+        z-index: 0;
     }
     
     /* Glowing border effect */
