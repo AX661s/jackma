@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Search, Shield, Database, Globe, Filter, Zap } from 'lucide-react';
+import { Search, Shield, Database, Globe, Filter, Zap, Phone, Mail, User, Settings, Wallet } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Card } from './ui/card';
+import { Checkbox } from './ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -18,11 +19,16 @@ export const SearchPage = ({ onSearch }) => {
   const [searchType, setSearchType] = useState('username');
   const [platform, setPlatform] = useState('all');
   const [isSearching, setIsSearching] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!query.trim()) {
       toast.error('Please enter a search query');
+      return;
+    }
+    if (!agreedToTerms) {
+      toast.error('Please agree to Terms of Use');
       return;
     }
     setIsSearching(true);
@@ -32,6 +38,15 @@ export const SearchPage = ({ onSearch }) => {
       setIsSearching(false);
     }, 800);
   };
+
+  // Search type icons
+  const searchTypes = [
+    { icon: Phone, label: 'Phone', value: 'phone', isNew: false },
+    { icon: Mail, label: 'Email', value: 'email', isNew: true },
+    { icon: User, label: 'Username', value: 'username', isNew: false },
+    { icon: Wallet, label: 'Wallet', value: 'wallet', isNew: true },
+    { icon: Shield, label: 'ID', value: 'id', isNew: false },
+  ];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -68,7 +83,7 @@ export const SearchPage = ({ onSearch }) => {
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-4xl space-y-8">
           {/* Hero Section */}
-          <div className="text-center space-y-4 mb-12">
+          <div className="text-center space-y-4 mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
               <Zap className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">Advanced Intelligence Platform</span>
@@ -81,8 +96,48 @@ export const SearchPage = ({ onSearch }) => {
               </span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Deep scan across multiple platforms to discover digital traces, social profiles, and online presence with military-grade precision.
+              Deep scan across multiple platforms to discover digital traces, social profiles, and online presence.
             </p>
+          </div>
+
+          {/* Search Type Icons */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            {searchTypes.map((type, idx) => {
+              const Icon = type.icon;
+              const isActive = searchType === type.value;
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setSearchType(type.value)}
+                  className={`relative group flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-300 ${
+                    isActive
+                      ? 'border-primary bg-primary/10 scale-105'
+                      : 'border-border/50 hover:border-primary/50 hover:bg-primary/5'
+                  }`}
+                  style={{ minWidth: '80px' }}
+                >
+                  {/* NEW Badge */}
+                  {type.isNew && (
+                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-600 to-purple-500 text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                      NEW
+                    </div>
+                  )}
+                  
+                  <Icon
+                    className={`w-6 h-6 transition-colors ${
+                      isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'
+                    }`}
+                  />
+                  <span
+                    className={`text-xs font-medium transition-colors ${
+                      isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                    }`}
+                  >
+                    {type.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Search Form */}
@@ -91,95 +146,100 @@ export const SearchPage = ({ onSearch }) => {
             <div className="relative p-8 space-y-6">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Main Search Input */}
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                    <Search className="w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                <div className="relative flex items-center gap-2">
+                  <div className="flex-1 relative group">
+                    <Input
+                      type="text"
+                      placeholder="Enter phone, email, username, name or wallet..."
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      className="h-16 text-lg bg-background/50 border-border/50 focus:border-primary/50 transition-all pl-5 pr-24"
+                    />
+                    {/* Settings icon in input */}
+                    <button
+                      type="button"
+                      className="absolute right-14 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <Settings className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                    </button>
                   </div>
-                  <Input
-                    type="text"
-                    placeholder="Enter username, email, or identifier..."
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    className="pl-12 h-14 text-lg bg-background/50 border-border/50 focus:border-primary/50 transition-all"
+                  
+                  {/* Search Button */}
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="h-16 px-8 bg-gradient-to-r from-primary via-secondary to-accent hover:opacity-90 transition-all shadow-lg hover:shadow-primary/50"
+                    disabled={isSearching}
+                  >
+                    {isSearching ? (
+                      <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin"></div>
+                    ) : (
+                      <Search className="w-6 h-6" />
+                    )}
+                  </Button>
+                </div>
+
+                {/* Terms Checkbox */}
+                <div className="flex items-center gap-2 justify-center">
+                  <Checkbox
+                    id="terms"
+                    checked={agreedToTerms}
+                    onCheckedChange={setAgreedToTerms}
+                    className="border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                   />
+                  <label htmlFor="terms" className="text-sm text-muted-foreground cursor-pointer">
+                    By selecting search you agree to our{' '}
+                    <a href="#" className="text-primary hover:underline">
+                      Terms of use
+                    </a>
+                  </label>
                 </div>
 
-                {/* Filters Row */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                      <Filter className="w-4 h-4" />
-                      Search Type
-                    </label>
-                    <Select value={searchType} onValueChange={setSearchType}>
-                      <SelectTrigger className="bg-background/50 border-border/50">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="username">Username</SelectItem>
-                        <SelectItem value="email">Email</SelectItem>
-                        <SelectItem value="phone">Phone Number</SelectItem>
-                        <SelectItem value="name">Full Name</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                {/* Advanced Filters (collapsible) */}
+                <details className="group">
+                  <summary className="cursor-pointer text-sm font-medium text-primary flex items-center gap-2 hover:text-primary/80 transition-colors">
+                    <Filter className="w-4 h-4" />
+                    Advanced Filters
+                    <span className="ml-auto text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
+                  </summary>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pt-4 border-t border-border/50">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                        <Globe className="w-4 h-4" />
+                        Platform
+                      </label>
+                      <Select value={platform} onValueChange={setPlatform}>
+                        <SelectTrigger className="bg-background/50 border-border/50">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All Platforms</SelectItem>
+                          <SelectItem value="social">Social Media</SelectItem>
+                          <SelectItem value="professional">Professional</SelectItem>
+                          <SelectItem value="coding">Coding/Dev</SelectItem>
+                          <SelectItem value="forum">Forums</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                      <Globe className="w-4 h-4" />
-                      Platform
-                    </label>
-                    <Select value={platform} onValueChange={setPlatform}>
-                      <SelectTrigger className="bg-background/50 border-border/50">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Platforms</SelectItem>
-                        <SelectItem value="social">Social Media</SelectItem>
-                        <SelectItem value="professional">Professional</SelectItem>
-                        <SelectItem value="coding">Coding/Dev</SelectItem>
-                        <SelectItem value="forum">Forums</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                        <Database className="w-4 h-4" />
+                        Scan Depth
+                      </label>
+                      <Select defaultValue="deep">
+                        <SelectTrigger className="bg-background/50 border-border/50">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="quick">Quick Scan</SelectItem>
+                          <SelectItem value="standard">Standard</SelectItem>
+                          <SelectItem value="deep">Deep Scan</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
-
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                      <Database className="w-4 h-4" />
-                      Scan Depth
-                    </label>
-                    <Select defaultValue="deep">
-                      <SelectTrigger className="bg-background/50 border-border/50">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="quick">Quick Scan</SelectItem>
-                        <SelectItem value="standard">Standard</SelectItem>
-                        <SelectItem value="deep">Deep Scan</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-primary via-secondary to-accent hover:opacity-90 transition-all shadow-lg hover:shadow-primary/50"
-                  disabled={isSearching}
-                >
-                  {isSearching ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-2"></div>
-                      Scanning...
-                    </>
-                  ) : (
-                    <>
-                      <Search className="w-5 h-5 mr-2" />
-                      Initiate Deep Scan
-                    </>
-                  )}
-                </Button>
+                </details>
               </form>
             </div>
           </Card>
@@ -187,10 +247,10 @@ export const SearchPage = ({ onSearch }) => {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { label: 'Platforms Monitored', value: '50+', icon: Globe },
-              { label: 'Database Records', value: '2.5B+', icon: Database },
-              { label: 'Avg. Response Time', value: '<2s', icon: Zap },
-              { label: 'Success Rate', value: '99.8%', icon: Shield },
+              { label: 'Platforms', value: '50+', icon: Globe },
+              { label: 'Records', value: '2.5B+', icon: Database },
+              { label: 'Speed', value: '<2s', icon: Zap },
+              { label: 'Success', value: '99.8%', icon: Shield },
             ].map((stat, idx) => (
               <Card key={idx} className="p-4 text-center border-border/50 bg-card/50 hover:border-primary/30 transition-all">
                 <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
