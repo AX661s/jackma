@@ -86,6 +86,11 @@ export const LoginPage = ({ onLogin }) => {
         <div className="absolute inset-0 bg-gradient-to-br from-background via-transparent to-background/80"></div>
       </div>
 
+      {/* Theme Switcher - Top Right */}
+      <div className="absolute top-6 right-6 z-20">
+        <ThemeSwitcher />
+      </div>
+
       {/* Login Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md space-y-8">
