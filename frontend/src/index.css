@@ -1,11 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
     margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
         "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
         sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -13,63 +14,71 @@ body {
 }
 
 code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-family: 'Azeret Mono', source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 @layer base {
     :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
+        /* OSINT Cyber Theme - Dark Mode Primary */
+        --background: 222 47% 4%;        /* Deep dark blue-black #07090F */
+        --foreground: 180 5% 95%;        /* Soft white #F0F2F2 */
+        
+        --card: 222 40% 8%;              /* Slightly lighter than background #0E1419 */
+        --card-foreground: 180 5% 95%;
+        
+        --popover: 222 45% 6%;
+        --popover-foreground: 180 5% 95%;
+        
+        /* Vibrant Cyan as Primary */
+        --primary: 180 100% 42%;         /* Bright Cyan #00D5D5 */
+        --primary-foreground: 222 47% 4%;
+        --primary-glow: 180 100% 55%;    /* Lighter cyan for glow effects */
+        
+        /* Teal Green as Secondary */
+        --secondary: 174 72% 35%;        /* Teal #1A9B8E */
+        --secondary-foreground: 180 5% 95%;
+        
+        /* Neon Green Accent */
+        --accent: 150 100% 45%;          /* Neon Green #00E673 */
+        --accent-foreground: 222 47% 4%;
+        
+        --muted: 222 30% 15%;            /* Muted dark blue-gray */
+        --muted-foreground: 180 5% 65%;  /* Muted light gray */
+        
+        --destructive: 0 84% 60%;
         --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
+        
+        --border: 222 30% 18%;           /* Subtle border */
+        --input: 222 30% 18%;
+        --ring: 180 100% 42%;            /* Cyan ring */
+        
+        /* Custom tokens for OSINT theme */
+        --success: 150 100% 45%;         /* Same as accent */
+        --warning: 45 100% 55%;          /* Yellow warning */
+        --info: 200 100% 50%;            /* Blue info */
+        
+        /* Gradients */
+        --gradient-cyber: linear-gradient(135deg, hsl(180 100% 42%), hsl(174 72% 35%), hsl(150 100% 45%));
+        --gradient-card: linear-gradient(135deg, hsl(222 40% 8% / 0.4), hsl(222 40% 12% / 0.6));
+        --gradient-hover: linear-gradient(135deg, hsl(180 100% 42% / 0.1), hsl(150 100% 45% / 0.1));
+        
+        /* Glows and Shadows */
+        --glow-cyan: 0 0 20px hsl(180 100% 42% / 0.3), 0 0 40px hsl(180 100% 42% / 0.1);
+        --glow-green: 0 0 20px hsl(150 100% 45% / 0.3), 0 0 40px hsl(150 100% 45% / 0.1);
+        --shadow-card: 0 4px 20px hsl(222 47% 4% / 0.5), 0 0 1px hsl(180 100% 42% / 0.1);
+        --shadow-elevated: 0 10px 40px hsl(222 47% 4% / 0.7), 0 0 2px hsl(180 100% 42% / 0.2);
+        
+        /* Animations */
+        --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        
+        --radius: 0.75rem;
+        
+        --chart-1: 180 100% 42%;
+        --chart-2: 150 100% 45%;
+        --chart-3: 174 72% 35%;
+        --chart-4: 200 100% 50%;
+        --chart-5: 45 100% 55%;
     }
 }
 
@@ -79,6 +88,129 @@ code {
     }
     body {
         @apply bg-background text-foreground;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: hsl(var(--background));
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: hsl(var(--muted));
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--primary) / 0.6);
+    }
+}
+
+@layer components {
+    /* Cyber grid background */
+    .cyber-grid {
+        background-image: 
+            linear-gradient(hsl(var(--primary) / 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+    }
+    
+    /* Glowing border effect */
+    .glow-border {
+        position: relative;
+        border: 1px solid hsl(var(--primary) / 0.3);
+    }
+    
+    .glow-border::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        padding: 1px;
+        background: var(--gradient-cyber);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity var(--transition-smooth);
+        pointer-events: none;
+    }
+    
+    .glow-border:hover::before {
+        opacity: 1;
+    }
+    
+    /* Scan line animation */
+    @keyframes scan {
+        0% {
+            transform: translateY(-100%);
+        }
+        100% {
+            transform: translateY(100%);
+        }
+    }
+    
+    .scan-effect {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .scan-effect::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+        animation: scan 3s linear infinite;
+        opacity: 0.3;
+    }
+    
+    /* Glitch effect for text */
+    @keyframes glitch {
+        0%, 100% {
+            text-shadow: 
+                0.05em 0 0 hsl(var(--primary) / 0.75),
+                -0.05em -0.025em 0 hsl(var(--accent) / 0.75);
+        }
+        25% {
+            text-shadow: 
+                -0.05em -0.025em 0 hsl(var(--primary) / 0.75),
+                0.025em 0.05em 0 hsl(var(--accent) / 0.75);
+        }
+        50% {
+            text-shadow: 
+                0.025em 0.05em 0 hsl(var(--primary) / 0.75),
+                0.05em 0 0 hsl(var(--accent) / 0.75);
+        }
+        75% {
+            text-shadow: 
+                -0.05em 0 0 hsl(var(--primary) / 0.75),
+                -0.025em -0.05em 0 hsl(var(--accent) / 0.75);
+        }
+    }
+    
+    .text-glitch:hover {
+        animation: glitch 0.5s infinite;
+    }
+    
+    /* Pulse animation */
+    @keyframes pulse-glow {
+        0%, 100% {
+            box-shadow: 0 0 5px hsl(var(--primary) / 0.3), 0 0 10px hsl(var(--primary) / 0.2);
+        }
+        50% {
+            box-shadow: 0 0 20px hsl(var(--primary) / 0.5), 0 0 30px hsl(var(--primary) / 0.3);
+        }
+    }
+    
+    .pulse-glow {
+        animation: pulse-glow 2s ease-in-out infinite;
     }
 }
 
