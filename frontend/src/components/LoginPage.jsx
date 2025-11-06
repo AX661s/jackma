@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card } from './ui/card';
 import { Checkbox } from './ui/checkbox';
+import ThemeSwitcher from './ThemeSwitcher';
 import { toast } from 'sonner';
 
 export const LoginPage = ({ onLogin }) => {
