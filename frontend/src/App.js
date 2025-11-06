@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LoginPage from './components/LoginPage';
 import SearchPage from './components/SearchPage';
 import ResultsPage from './components/ResultsPage';
 import LoadingProgress from './components/LoadingProgress';
@@ -6,14 +7,18 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { Toaster } from './components/ui/sonner';
 
 function AppContent() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
   const handleSearch = (query, filters) => {
     setSearchQuery(query);
     setIsLoading(true);
-    // Loading will auto-complete and trigger results
   };
 
   const handleLoadingComplete = () => {
@@ -25,6 +30,11 @@ function AppContent() {
     setSearchResults(null);
     setSearchQuery('');
   };
+
+  // Show login page if not authenticated
+  if (!isAuthenticated) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
 
   return (
     <div className="min-h-screen bg-background cyber-grid">
