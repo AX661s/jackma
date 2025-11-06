@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import SearchPage from './components/SearchPage';
 import ResultsPage from './components/ResultsPage';
 import LoadingProgress from './components/LoadingProgress';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { Toaster } from './components/ui/sonner';
 
-export default function App() {
+function AppContent() {
   const [searchResults, setSearchResults] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +41,14 @@ export default function App() {
       )}
       <Toaster />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

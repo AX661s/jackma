@@ -5,6 +5,7 @@ import { Badge } from './ui/badge';
 import { Card } from './ui/card';
 import { Skeleton } from './ui/skeleton';
 import SocialCard from './SocialCard';
+import ThemeSwitcher from './ThemeSwitcher';
 import { Input } from './ui/input';
 import {
   Select,
@@ -173,6 +174,7 @@ export const ResultsPage = ({ results, query, onBack }) => {
                 <Download className="w-4 h-4" />
                 Export
               </Button>
+              <ThemeSwitcher />
             </div>
           </div>
         </div>

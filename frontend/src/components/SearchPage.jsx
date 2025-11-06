@@ -5,6 +5,7 @@ import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Card } from './ui/card';
 import { Checkbox } from './ui/checkbox';
+import ThemeSwitcher from './ThemeSwitcher';
 import {
   Select,
   SelectContent,
@@ -69,11 +70,12 @@ export const SearchPage = ({ onSearch }) => {
                 <p className="text-xs text-muted-foreground font-mono">Digital Footprint Intelligence</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Badge variant="outline" className="border-primary/30 text-primary pulse-glow">
                 <div className="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></div>
                 System Active
               </Badge>
+              <ThemeSwitcher />
             </div>
           </div>
         </div>
