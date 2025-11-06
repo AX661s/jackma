@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import SearchPage from './components/SearchPage';
 import ResultsPage from './components/ResultsPage';
+import LoadingProgress from './components/LoadingProgress';
 import { Toaster } from './components/ui/sonner';
 
 export default function App() {
   const [searchResults, setSearchResults] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = (query, filters) => {
     setSearchQuery(query);
-    // Simulate search with mock data
-    setTimeout(() => {
-      setSearchResults(generateMockResults(query));
-    }, 800);
+    setIsLoading(true);
+    // Loading will auto-complete and trigger results
+  };
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    setSearchResults(generateMockResults(searchQuery));
   };
 
   const handleBack = () => {
@@ -22,7 +27,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background cyber-grid">
-      {!searchResults ? (
+      {isLoading ? (
+        <LoadingProgress onComplete={handleLoadingComplete} />
+      ) : !searchResults ? (
         <SearchPage onSearch={handleSearch} />
       ) : (
         <ResultsPage 
